@@ -9,5 +9,6 @@
     "summary": { "type": "string", "maxLength": 300 },
     "next_action": { "type": "string", "maxLength": 200 }
   },
+  "additionalProperties": false,
   "required": ["intent", "budget_estimate", "urgency", "score", "category", "summary", "next_action"]
 }

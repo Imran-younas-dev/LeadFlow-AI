@@ -1,5 +1,100 @@
 [
-  { "name": "Sara Khan", "email": "sara@example.com", "company": "Khan Textiles", "website": "https://example.com", "budget_range": "$2k-$5k", "message": "We need a new website and online store before Eid season. Can we talk this week?", "expected": "hot" },
-  { "name": "Ali Raza", "email": "ali@example.com", "company": "", "website": "", "budget_range": "Not sure", "message": "Just exploring options for a small blog, maybe later this year.", "expected": "cold" },
-  { "name": "Seo Guru", "email": "promo@spam.test", "company": "RankNow", "website": "http://spam.test", "budget_range": "", "message": "Buy cheap SEO links http://a.test http://b.test casino bonus", "expected": "spam" }
+  {
+    "name": "Sara Khan",
+    "email": "sara@example.com",
+    "company": "Khan Textiles",
+    "website": "https://example.com",
+    "budget_range": "$2k-$5k",
+    "message": "We need a new website and online store before Eid season. Can we talk this week?",
+    "expected": "hot"
+  },
+  {
+    "name": "Ali Raza",
+    "email": "ali@example.com",
+    "company": "",
+    "website": "",
+    "budget_range": "Not sure",
+    "message": "Just exploring options for a small blog, maybe later this year.",
+    "expected": "cold"
+  },
+  {
+    "name": "Seo Guru",
+    "email": "promo@spam.test",
+    "company": "RankNow",
+    "website": "http://spam.test",
+    "budget_range": "",
+    "message": "Buy cheap SEO links http://a.test http://b.test casino bonus",
+    "expected": "spam"
+  },
+  {
+    "name": "",
+    "email": "empty.name@example.com",
+    "company": "Northwind",
+    "website": "",
+    "budget_range": "Not sure",
+    "message": "We need a new brochure site this month.",
+    "expected": "invalid",
+    "invalid_reason": "name is empty"
+  },
+  {
+    "name": "Bad Email",
+    "email": "not-an-email",
+    "company": "Northwind",
+    "website": "",
+    "budget_range": "Not sure",
+    "message": "Please send a quote for a five-page site.",
+    "expected": "invalid",
+    "invalid_reason": "email does not match a simple pattern"
+  },
+  {
+    "name": "Short Message",
+    "email": "short@example.com",
+    "company": "Northwind",
+    "website": "",
+    "budget_range": "$1k-$2k",
+    "message": "hi",
+    "expected": "invalid",
+    "invalid_reason": "message is shorter than 10 characters"
+  },
+  {
+    "name": "Long Message",
+    "email": "long@example.com",
+    "company": "Northwind",
+    "website": "",
+    "budget_range": "$2k-$5k",
+    "message": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    "expected": "invalid",
+    "invalid_reason": "message is longer than 2000 characters"
+  },
+  {
+    "name": "   ",
+    "email": "spaces@example.com",
+    "company": "Northwind",
+    "website": "",
+    "budget_range": "Not sure",
+    "message": "               ",
+    "expected": "invalid",
+    "invalid_reason": "name and message are empty after trim"
+  },
+  {
+    "name": "Bot User",
+    "email": "bot@example.com",
+    "company": "Spam Co",
+    "website": "https://example.com",
+    "budget_range": "$5k+",
+    "message": "We need a new website before next week.",
+    "website_url_confirm": "http://bot.example",
+    "expected": "spam",
+    "invalid_reason": "honeypot website_url_confirm is filled"
+  },
+  {
+    "name": "No Message",
+    "email": "nomsg@example.com",
+    "company": "Northwind",
+    "website": "",
+    "budget_range": "Not sure",
+    "message": "",
+    "expected": "invalid",
+    "invalid_reason": "message is empty"
+  }
 ]
