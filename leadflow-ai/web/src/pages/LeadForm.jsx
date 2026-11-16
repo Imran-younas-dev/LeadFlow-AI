@@ -71,8 +71,8 @@ export default function LeadForm() {
           {state.status === 'sending' ? 'Sending...' : 'Submit'}
         </button>
 
-        {state.status === 'success' && <p className="msg ok">{state.message}</p>}
-        {state.status === 'error' && <p className="msg err">{state.message}</p>}
+        {state.status === 'success' && <p className="msg ok" role="status" aria-live="polite">{state.message}</p>}
+        {state.status === 'error' && <p className="msg err" role="status" aria-live="polite">{state.message}</p>}
       </form>
     </div>
   )
