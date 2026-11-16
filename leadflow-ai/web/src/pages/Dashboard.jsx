@@ -8,6 +8,7 @@ export default function Dashboard() {
   const [filter, setFilter] = useState('all')
   const [openId, setOpenId] = useState(null)
   const [apiKey, setApiKey] = useState('') // kept in memory only
+  const [hasLoaded, setHasLoaded] = useState(false)
   const [state, setState] = useState({ loading: !needsApiKey, error: '' })
 
   async function load() {
@@ -15,6 +16,7 @@ export default function Dashboard() {
     try {
       const data = await fetchLeads(apiKey)
       setLeads([...data].sort((a, b) => new Date(b.created_at) - new Date(a.created_at)))
+      setHasLoaded(true)
       setState({ loading: false, error: '' })
     } catch (err) {
       setState({ loading: false, error: err.message })
@@ -33,23 +35,29 @@ export default function Dashboard() {
 
       {needsApiKey && (
         <div className="keyrow">
-          <input type="password" placeholder="Dashboard API key" value={apiKey} onChange={(e) => setApiKey(e.target.value)} />
-          <button className="primary small" onClick={load}>Load</button>
+          <label htmlFor="dashboard-key">
+            Dashboard API key
+            <input id="dashboard-key" type="password" value={apiKey} onChange={(e) => setApiKey(e.target.value)} autoComplete="off" />
+          </label>
+          <button type="button" className="primary small" onClick={load}>Load</button>
         </div>
       )}
 
-      <div className="chips">
+      <div className="chips" role="group" aria-label="Filter by category">
         {FILTERS.map((f) => (
-          <button key={f} className={filter === f ? 'chip active' : 'chip'} onClick={() => setFilter(f)}>
+          <button type="button" key={f} className={filter === f ? 'chip active' : 'chip'} aria-pressed={filter === f} onClick={() => setFilter(f)}>
             {f[0].toUpperCase() + f.slice(1)}
           </button>
         ))}
       </div>
 
-      {state.loading && <p>Loading...</p>}
-      {state.error && <p className="msg err">{state.error}</p>}
+      {state.loading && <p role="status">Loading...</p>}
+      {state.error && <p className="msg err" role="alert">{state.error}</p>}
+      {needsApiKey && !hasLoaded && !state.loading && !state.error && (
+        <p className="empty-note">Enter the dashboard key and press Load.</p>
+      )}
 
-      {!state.loading && !state.error && (
+      {hasLoaded && !state.loading && !state.error && (
         <div className="tablewrap">
           <table>
             <thead>
@@ -64,11 +72,22 @@ export default function Dashboard() {
             </thead>
             <tbody>
               {visible.length === 0 && (
-                <tr><td colSpan="6" className="empty">No leads yet.</td></tr>
+                <tr><td colSpan="6" className="empty">{leads.length === 0 ? 'No leads yet.' : 'No leads in this category.'}</td></tr>
               )}
               {visible.map((l) => (
                 <Fragment key={l.lead_id}>
-                  <tr className="row" onClick={() => setOpenId(openId === l.lead_id ? null : l.lead_id)}>
+                  <tr
+                    className="row"
+                    tabIndex={0}
+                    aria-expanded={openId === l.lead_id}
+                    onClick={() => setOpenId(openId === l.lead_id ? null : l.lead_id)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault()
+                        setOpenId(openId === l.lead_id ? null : l.lead_id)
+                      }
+                    }}
+                  >
                     <td>{l.name}</td>
                     <td>{l.company || '-'}</td>
                     <td>{l.score}</td>
