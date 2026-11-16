@@ -55,8 +55,10 @@ button.primary:disabled { opacity: 0.6; cursor: not-allowed; }
 .msg.ok { color: #15803d; }
 .msg.err { color: #b91c1c; }
 
-.keyrow { display: flex; gap: 8px; max-width: 420px; margin-bottom: 14px; }
-.keyrow input { margin-top: 0; }
+.keyrow { display: flex; gap: 8px; max-width: 480px; margin-bottom: 14px; align-items: flex-end; }
+.keyrow label { flex: 1; }
+.keyrow input { margin-top: 4px; }
+.empty-note { color: var(--muted); }
 .chips { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
 .chip {
   border: 1px solid var(--border); background: var(--card); color: var(--muted);
@@ -70,6 +72,7 @@ th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--bo
 th { color: var(--muted); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; }
 tr.row { cursor: pointer; }
 tr.row:hover { background: #f9fafb; }
+tr.row:focus-visible { outline: 2px solid var(--primary); outline-offset: -2px; }
 tr.detail td { background: #f9fafb; color: var(--text); }
 td.empty { text-align: center; color: var(--muted); padding: 24px; }
 

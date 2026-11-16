@@ -5,7 +5,8 @@ services:
     container_name: leadflow-n8n
     restart: unless-stopped
     ports:
-      - "5678:5678"
+      # Localhost only, so the editor is not open on the LAN. Day 19 adds real auth.
+      - "127.0.0.1:5678:5678"
     environment:
       - GENERIC_TIMEZONE=Asia/Karachi
       - TZ=Asia/Karachi
