@@ -1,0 +1,28 @@
+---
+description: LeadFlow AI scope, secrets, and reliability rules
+alwaysApply: true
+---
+
+# LeadFlow AI
+
+n8n is the only backend. Do not add an Express server, a database, or a UI library.
+
+## Secrets
+
+- Put API keys in n8n credentials or in untracked `.env` files.
+- Never put a key in `workflows/*.json`, in a node, or in a `VITE_` variable.
+- The dashboard key stays in React state for the session. Do not write it to `localStorage`.
+
+## Automation
+
+- Validate and trim the lead before any Claude call. A filled `website_url_confirm` is spam and skips the model.
+- Scoring uses temperature 0. The tool `input_schema` must match `schemas/lead-score.schema.json`.
+- Wrap untrusted lead and website text in `<lead>` and `<company_context>` delimiters.
+- Route only after a Code node checks every required field and enum. Unexpected categories become `needs_manual_review`.
+- Hot leads get an alert and a draft. Do not auto-send a hot reply.
+- On model or email failure, still write the row with `status = needs_manual_review` and `error_note`.
+
+## Docs
+
+- README results may quote only numbers recorded in `docs/evaluation.md`.
+- Update `docs/PROJECT_OVERVIEW.md` (Current status) when a day's "done when" line becomes true.
