@@ -3,9 +3,11 @@ import { mockLeads } from '../data/mockLeads.js'
 const WEBHOOK_URL = import.meta.env.VITE_WEBHOOK_URL
 const DASHBOARD_URL = import.meta.env.VITE_DASHBOARD_URL
 
-export const isMockMode = !WEBHOOK_URL
+export const formUsesMock = !WEBHOOK_URL
+export const dashboardUsesMock = !DASHBOARD_URL
+export const isMockMode = formUsesMock && dashboardUsesMock
 
-const STORAGE_KEY = 'leadflow_mock_leads'
+const STORAGE_KEY = 'leadflow_mock_leads_v2'
 
 function loadMock() {
   try {
@@ -38,6 +40,13 @@ function fakeScore({ message = '', budget_range = '' }) {
   return { category: 'cold', score: 25, summary: 'Vague inquiry with no budget or timeline.' }
 }
 
+function statusFor(category) {
+  if (category === 'spam') return 'dropped'
+  if (category === 'hot') return 'alerted'
+  if (category === 'cold') return 'logged'
+  return 'auto_replied'
+}
+
 export async function submitLead(lead) {
   if (WEBHOOK_URL) {
     const res = await fetch(WEBHOOK_URL, {
@@ -50,16 +59,20 @@ export async function submitLead(lead) {
     return data
   }
 
-  // Mock path
+  // Mock path. The honeypot is not stored.
   await new Promise((r) => setTimeout(r, 600))
-  const result = fakeScore(lead)
+  const { website_url_confirm, ...fields } = lead
+  const honeypotHit = Boolean((website_url_confirm || '').trim())
+  const result = honeypotHit
+    ? { category: 'spam', score: 0, summary: 'Honeypot field was filled.' }
+    : fakeScore(fields)
   const saved = {
     lead_id: `L-${Date.now()}`,
     created_at: new Date().toISOString(),
-    ...lead,
+    ...fields,
     ...result,
-    status: result.category === 'spam' ? 'dropped' : result.category === 'hot' ? 'alerted' : 'auto_replied',
-    reply_draft: result.category === 'hot' ? `Hi ${lead.name}, thanks for reaching out. We would love to talk this week.` : '',
+    status: statusFor(result.category),
+    reply_draft: result.category === 'hot' ? `Hi ${fields.name}, thanks for reaching out. We would love to talk this week.` : '',
   }
   saveMock([saved, ...loadMock()])
   return { ok: true, lead_id: saved.lead_id }
