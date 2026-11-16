@@ -1,0 +1,13 @@
+{
+  "type": "object",
+  "properties": {
+    "intent": { "type": "string", "enum": ["new_project", "pricing_question", "support", "partnership", "job_seeker", "other"] },
+    "budget_estimate": { "type": "string", "enum": ["none", "low", "medium", "high", "unknown"] },
+    "urgency": { "type": "string", "enum": ["low", "medium", "high"] },
+    "score": { "type": "integer", "minimum": 0, "maximum": 100 },
+    "category": { "type": "string", "enum": ["hot", "warm", "cold", "spam"] },
+    "summary": { "type": "string", "maxLength": 300 },
+    "next_action": { "type": "string", "maxLength": 200 }
+  },
+  "required": ["intent", "budget_estimate", "urgency", "score", "category", "summary", "next_action"]
+}

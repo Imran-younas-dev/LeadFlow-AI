@@ -1,0 +1,5 @@
+[
+  { "name": "Sara Khan", "email": "sara@example.com", "company": "Khan Textiles", "website": "https://example.com", "budget_range": "$2k-$5k", "message": "We need a new website and online store before Eid season. Can we talk this week?", "expected": "hot" },
+  { "name": "Ali Raza", "email": "ali@example.com", "company": "", "website": "", "budget_range": "Not sure", "message": "Just exploring options for a small blog, maybe later this year.", "expected": "cold" },
+  { "name": "Seo Guru", "email": "promo@spam.test", "company": "RankNow", "website": "http://spam.test", "budget_range": "", "message": "Buy cheap SEO links http://a.test http://b.test casino bonus", "expected": "spam" }
+]

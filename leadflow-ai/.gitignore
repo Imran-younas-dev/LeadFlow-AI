@@ -1,0 +1,7 @@
+node_modules
+dist
+.env
+.env.local
+web/.env
+n8n_data
+.DS_Store
